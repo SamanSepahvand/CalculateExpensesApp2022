@@ -12,10 +12,12 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_addInvoicesFragment"
-            app:destination="@id/addInvoicesFragment" />
+            app:destination="@id/addInvoicesFragment"
+            app:enterAnim="@anim/anim_enter" />
         <action
             android:id="@+id/action_mainFragment_to_listInvoicesFragment"
-            app:destination="@id/listInvoicesFragment" />
+            app:destination="@id/listInvoicesFragment"
+            app:enterAnim="@anim/anim_enter" />
     </fragment>
     <fragment
         android:id="@+id/addInvoicesFragment"
@@ -36,4 +38,6 @@
         android:name="com.samansepahvand.calculateexpensesapp2022.ui.fragment.DetailInvoicesFragment"
         android:label="fragment_detail_invoices"
         tools:layout="@layout/fragment_detail_invoices" />
+
+
 </navigation>
