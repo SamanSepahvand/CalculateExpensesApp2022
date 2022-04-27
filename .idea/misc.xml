@@ -3,12 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/drawable/background_bottom_white_top_radius.xml" value="0.1574074074074074" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.1574074074074074" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.1609375" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/drawable/shape_background_radius_all_main.xml" value="0.1609375" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/drawable/shape_image_bacground_all_radius.xml" value="0.1609375" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/drawable/shape_textview_all_radius.xml" value="0.1574074074074074" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/fragment_add_invoices.xml" value="0.19924529018924966" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/fragment_main.xml" value="0.18113208199022698" />
       </map>
     </option>
