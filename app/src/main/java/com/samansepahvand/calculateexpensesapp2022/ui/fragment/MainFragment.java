@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
+import com.samansepahvand.calculateexpensesapp2022.bussines.repository.PriceTypeRepository;
 import com.samansepahvand.calculateexpensesapp2022.infrastructure.Utility;
 
 /**
@@ -86,12 +87,14 @@ public class MainFragment extends Fragment  implements View.OnClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
+
     }
 
 
     private void initView(View view){
         mNavController= Navigation.findNavController(view);
 
+        PriceTypeRepository.getInstance().AddDefaultPriceType();
 
         imgAddInvoicesMore=view.findViewById(R.id.img_add_invoices_more);
         imgInvoiceListMore=view.findViewById(R.id.img_list_invoices_more);

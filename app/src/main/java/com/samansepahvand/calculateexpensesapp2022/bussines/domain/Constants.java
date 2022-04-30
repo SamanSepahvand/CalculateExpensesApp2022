@@ -3,6 +3,7 @@ package com.samansepahvand.calculateexpensesapp2022.bussines.domain;
 import android.graphics.Typeface;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
+import com.samansepahvand.calculateexpensesapp2022.ui.MainApplication;
 
 public class Constants {
 
@@ -14,11 +15,11 @@ public class Constants {
     public static final int DelayTimeDialogAnimation = 500;
 
 
-//    public static Typeface CustomStyleElement() {
-//        Typeface fontIranSans = Typeface.createFromAsset(MainApplication.getAppMainContext().getAssets(),
-//                "fonts/iran_sans.ttf");
-//        return fontIranSans;
-//    }
+    public static Typeface CustomStyleElement() {
+        Typeface fontIranSans = Typeface.createFromAsset(MainApplication.getAppMainContext().getAssets(),
+                "fonts/iran_sans.ttf");
+        return fontIranSans;
+    }
 
 
 
@@ -45,13 +46,13 @@ public class Constants {
 
 
     public static String[] PriceTypeHeader = new String[]{
-            "خرید",
+            "خرید", //0
             "اجاره",
             "ماشین",
             "خوراک",
             "رفت و آمد",
             "سرگرمی",
-            "قبوض"
+            "قبوض" //6
     };
 
 

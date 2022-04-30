@@ -11,12 +11,16 @@
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/drawable/shape_image_bacground_all_radius.xml" value="0.1609375" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/drawable/shape_textview_all_radius.xml" value="0.1574074074074074" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/dialog_add_price_type.xml" value="0.2988679352838745" />
+        <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/dialog_price_type.xml" value="0.19924529018924966" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/fragment_add_invoices.xml" value="0.19924529018924966" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/fragment_detail_invoices.xml" value="0.2264151024877837" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/fragment_list_invoices.xml" value="0.2264151024877837" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/fragment_main.xml" value="0.18113208199022698" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/item_list_invoices.xml" value="0.4528302049755674" />
         <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/item_same_invoices.xml" value="0.1901886860897383" />
+        <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/list_row_child.xml" value="0.1" />
+        <entry key="..\:/Users/Faradars/AndroidStudioProjects/CalculateExpensesApp2022/app/src/main/res/layout/list_row_group.xml" value="0.14479166666666668" />
       </map>
     </option>
   </component>

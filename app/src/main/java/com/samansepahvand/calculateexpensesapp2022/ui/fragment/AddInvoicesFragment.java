@@ -26,8 +26,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
+import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.OperationResult;
+import com.samansepahvand.calculateexpensesapp2022.bussines.repository.InfoRepository;
+import com.samansepahvand.calculateexpensesapp2022.db.Info;
 import com.samansepahvand.calculateexpensesapp2022.db.PriceType;
 import com.samansepahvand.calculateexpensesapp2022.infrastructure.Utility;
+import com.samansepahvand.calculateexpensesapp2022.ui.customView.DialogFragmentPriceType;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -47,7 +51,7 @@ import ir.hamsaa.persiandatepicker.util.PersianCalendarUtils;
  * Use the {@link AddInvoicesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddInvoicesFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
+public class AddInvoicesFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener , DialogFragmentPriceType.IPriceTypeDialogFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -170,8 +174,9 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
                 try {
 
                     if (!editable.toString().equals(current)) {
+
                         edtPrice.removeTextChangedListener(this);
-                        String cleanString = editable.toString().replaceAll("[$,.]]", "");
+                        String cleanString = editable.toString().replaceAll("[$,.]", "");
                         double parsed = Double.parseDouble(cleanString.equals("") ? "0" : cleanString);
                         String formatted = NumberFormat.getNumberInstance().format(parsed);
                         current = formatted;
@@ -179,6 +184,7 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
                         edtPrice.setSelection(formatted.length());
                         edtPrice.addTextChangedListener(this);
                         invoicePrice = formatted;
+
 
                     }
                 } catch (Exception e) {
@@ -226,6 +232,9 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
                 + "</font>" + " بابت هزینه  " + "<font color='red'>" + invoiceTitle + "</font>" + " پرداخت کرده اید. ");
 
         txtShowInvoice.setText(strHtml);
+
+
+
     }
 
 
@@ -239,7 +248,7 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
                 String tempPrice = edtPrice.getText().toString();
 
                 if (validation(tempTitle, tempPrice)) {
-                    /// AddNewPrice();
+                    AddNewPrice();
                 } else {
                     Toast.makeText(getContext(), "Error Null !", Toast.LENGTH_SHORT).show();
                 }
@@ -248,9 +257,44 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
                 PersianDataPicker();
                 break;
             case R.id.txt_price_type:
-            //  OpenPriceTypeDialog();
+           OpenPriceTypeDialog();
                 break;
         }
+
+    }
+
+    private void AddNewPrice() {
+
+
+        Info info=new Info();
+
+
+        info.setTitle(edtTitle.getText().toString());
+        info.setPrice(Utility.GetPrice(edtPrice.getText().toString()));
+
+        info.setEngDate(GetEngDate());
+        info.setFarsiDate(GetFarsiDate());
+        info.setActionDate(GetActionDate());
+
+        if (globalPriceType==null){
+            Toast.makeText(getContext(), "لطفا یک دسته بندی را انتخاب کنید.", Toast.LENGTH_SHORT).show();
+        }else{
+            info.setPriceTypeId(globalPriceType.getPriceTypeId());
+            info.setPriceTypeItemId(globalPriceType.getPriceTypeItemId());
+        }
+        OperationResult result= InfoRepository.getInstance().AddPrice(info);
+        Toast.makeText(getContext(), result.Message, Toast.LENGTH_SHORT).show();
+
+
+      //  mNavController.navigate();
+    }
+
+    private void OpenPriceTypeDialog() {
+
+
+        DialogFragmentPriceType dialog=new DialogFragmentPriceType();
+        dialog.setTargetFragment(AddInvoicesFragment.this,1);
+        dialog.show(getFragmentManager(),getString(R.string.app_name));
 
     }
 
@@ -362,8 +406,25 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
     }
 
 
+    @Override
+    public void GetPrice(PriceType priceType) {
+
+        Log.e(TAG, "GetPrice: "+priceType );
 
 
+        if (priceType!=null){
+
+            globalPriceType=new PriceType();
+            globalPriceType=priceType;
+            fillPriceType(globalPriceType);
+
+        }
 
 
+    }
+
+    private void fillPriceType(PriceType globalPriceType) {
+        txtPriceTypeResult.setVisibility(View.VISIBLE);
+   txtPriceTypeResult.setText(globalPriceType.getPriceTypeItemIdName());
+    }
 }
