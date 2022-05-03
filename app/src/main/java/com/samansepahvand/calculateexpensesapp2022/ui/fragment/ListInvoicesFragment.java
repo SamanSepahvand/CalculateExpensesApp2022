@@ -23,6 +23,7 @@ import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DateModel;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.OperationResult;
 import com.samansepahvand.calculateexpensesapp2022.bussines.repository.InfoRepository;
 import com.samansepahvand.calculateexpensesapp2022.infrastructure.Utility;
+import com.samansepahvand.calculateexpensesapp2022.ui.adapter.ListInvoicesAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +51,7 @@ public class ListInvoicesFragment extends Fragment implements SearchView.OnQuery
     private NavController navController;
     private ImageView imgBack;
     private DateModel dateModel;
-private ListInvoiceAdapter adapter;
+private ListInvoicesAdapter adapter;
 
 
     /**
@@ -132,9 +133,8 @@ private ListInvoiceAdapter adapter;
             txtFormDateToDate.setText(DateModelInfoDesc(dateModel));
             txtInvoiceCount.setText("تعداد : "+(result.Items.size()));
             txtTotalPrice.setText(Utility.SplitDigits(Integer.parseInt(result.Message)));
-
-          //  adapter=new ListInvoicesAdater();
-           // recyclerView.setAdapter(adapter);
+            adapter=new ListInvoicesAdapter(getContext(),result.Items);
+            recyclerView.setAdapter(adapter);
 
         }else{
             Toast.makeText(getContext(), ""+result.Message, Toast.LENGTH_SHORT).show();

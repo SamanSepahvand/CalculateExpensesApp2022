@@ -244,4 +244,19 @@ public class Utility {
             return String.valueOf(number);
         }
     }
+
+
+    public static String splitDigits(int number) {
+        try {
+            DecimalFormat decimalFormat = new DecimalFormat();
+            DecimalFormatSymbols decimalFormatSymbol = new DecimalFormatSymbols();
+            decimalFormatSymbol.setGroupingSeparator(',');
+            decimalFormat.setDecimalFormatSymbols(decimalFormatSymbol);
+            return decimalFormat.format(number);
+        } catch (Exception ex) {
+            return String.valueOf(number);
+        }
+    }
+
+
 }

@@ -81,7 +81,7 @@ public class InfoRepository {
 
     }
 
-            return new OperationResult(String.valueOf(totalPrice),false,null,null,metaModelList);
+            return new OperationResult(String.valueOf(totalPrice),true,null,null,metaModelList);
 
         }catch (Exception e){
 
