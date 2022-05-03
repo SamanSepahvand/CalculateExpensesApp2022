@@ -3,6 +3,7 @@ package com.samansepahvand.calculateexpensesapp2022.bussines.metaModel;
 public class ResultMessage {
 
     public static final String SuccessMessage="عملیات با موفقیت انجام شد.";
+    public static final String SuccessUpdateMessage="عملیات ویرایش با موفقیت انجام شد.";
 
     public static final String ErrorMessage="خطا در انجام عملیات !";
 

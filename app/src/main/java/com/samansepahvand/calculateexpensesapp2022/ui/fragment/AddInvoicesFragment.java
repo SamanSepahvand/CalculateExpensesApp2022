@@ -79,6 +79,11 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
     private PriceType globalPriceType;
 
     //edit
+    private long Id=0;
+    private  boolean isUpdate=false;
+
+    private Info infoDate=new Info();
+
 
 
     public AddInvoicesFragment() {
@@ -131,6 +136,7 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
         mNavController = Navigation.findNavController(view);
 
 
+
         imgInsertBack = view.findViewById(R.id.img_back);
         edtPrice = view.findViewById(R.id.edt_price);
         edtTitle = view.findViewById(R.id.edt_name);
@@ -140,6 +146,24 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
         txtPriceTypeResult = view.findViewById(R.id.txt_price_type_result);
         txtShowInvoice = view.findViewById(R.id.txt_invoice_show);
         txtChooseDate = view.findViewById(R.id.txt_date_chosse);
+
+        Bundle bundle=getArguments();
+        if (bundle!=null){
+
+            infoDate=(Info) bundle.getSerializable("Info");
+            if (infoDate!=null){
+
+                StateLive(infoDate.getTitle(),String.valueOf(infoDate.getPrice()));
+
+                edtPrice.setText(infoDate.getPrice()+"");
+                edtTitle.setText(infoDate.getTitle());
+                Id=infoDate.getId();
+                isUpdate=true;
+
+
+            }
+        }
+
 
         edtOnline();
 
@@ -272,9 +296,12 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
         info.setTitle(edtTitle.getText().toString());
         info.setPrice(Utility.GetPrice(edtPrice.getText().toString()));
 
-        info.setEngDate(GetEngDate());
-        info.setFarsiDate(GetFarsiDate());
-        info.setActionDate(GetActionDate());
+        info.setEngDate(!isUpdate?GetEngDate() : infoDate.getEngDate());
+        info.setFarsiDate(!isUpdate?GetFarsiDate(): infoDate.getFarsiDate());
+        info.setActionDate(!isUpdate?GetActionDate(): infoDate.getActionDate());
+
+
+        if (!isUpdate){
 
         if (globalPriceType==null){
             Toast.makeText(getContext(), "لطفا یک دسته بندی را انتخاب کنید.", Toast.LENGTH_SHORT).show();
@@ -282,11 +309,18 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
             info.setPriceTypeId(globalPriceType.getPriceTypeId());
             info.setPriceTypeItemId(globalPriceType.getPriceTypeItemId());
         }
-        OperationResult result= InfoRepository.getInstance().AddPrice(info);
+        }else{
+            info.setPriceTypeId(info.getPriceTypeId());
+            info.setPriceTypeItemId(info.getPriceTypeItemId());
+
+        }
+
+
+        OperationResult result= InfoRepository.getInstance().AddPrice(info,Id);
         Toast.makeText(getContext(), result.Message, Toast.LENGTH_SHORT).show();
 
 
-      //  mNavController.navigate();
+        mNavController.navigate(R.id.action_addInvoicesFragment_to_mainFragment);
     }
 
     private void OpenPriceTypeDialog() {

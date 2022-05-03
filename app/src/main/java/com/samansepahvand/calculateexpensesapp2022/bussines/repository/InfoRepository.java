@@ -42,17 +42,38 @@ public class InfoRepository {
         return infoRepository;
     }
 
-    public OperationResult AddPrice(Info info) {
+    public OperationResult AddPrice(Info info,long Id) {
 
 
 
         try{
 
+            if (Id!=0){
+                Info infoUpdate=new Select().from(Info.class).where("id=?",Id).executeSingle();
+                if (infoUpdate!=null){
 
-            info.save();
+                    infoUpdate.setPrice(info.getPrice());
+                    infoUpdate.setTitle(info.getTitle());
+                    infoUpdate.setEngDate(infoUpdate.getEngDate());
+                    infoUpdate.setFarsiDate(infoUpdate.getFarsiDate());
 
-            return new OperationResult(ResultMessage.SuccessMessage,true,null);
-        }catch (Exception e){
+                    infoUpdate.save();
+
+                    return new OperationResult(ResultMessage.SuccessUpdateMessage,true,null);
+
+                }else{
+                    return new OperationResult(ResultMessage.ErrorFindInvoices,false,null);
+
+                }
+
+
+            }else{
+                info.save();
+                return new OperationResult(ResultMessage.SuccessMessage,true,null);
+
+            }
+
+                }catch (Exception e){
 
             return new OperationResult(ResultMessage.ErrorMessage,false,e.getMessage());
         }
@@ -112,7 +133,8 @@ public class InfoRepository {
                  return new OperationResult(ResultMessage.SuccessMessage,isSuccess,null);
 
                 case  Enumerations.InvoiceActionType.SHOW:
-                    return new OperationResult(ResultMessage.ErrorMessage,false,null);
+
+                    return new OperationResult(ResultMessage.SuccessMessage,true,null,info,null);
 
                 default:
                  return  new OperationResult(ResultMessage.ErrorMessage,false,null);

@@ -23,7 +23,15 @@
         android:id="@+id/addInvoicesFragment"
         android:name="com.samansepahvand.calculateexpensesapp2022.ui.fragment.AddInvoicesFragment"
         android:label="fragment_add_invoices"
-        tools:layout="@layout/fragment_add_invoices" />
+        tools:layout="@layout/fragment_add_invoices" >
+        <argument
+            android:name="Info"
+            app:argType="com.samansepahvand.calculateexpensesapp2022.db.Info"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_addInvoicesFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/listInvoicesFragment"
         android:name="com.samansepahvand.calculateexpensesapp2022.ui.fragment.ListInvoicesFragment"
@@ -32,6 +40,11 @@
         <action
             android:id="@+id/action_listInvoicesFragment_to_detailInvoicesFragment"
             app:destination="@id/detailInvoicesFragment" />
+        <action
+            android:id="@+id/action_listInvoicesFragment_to_addInvoicesFragment"
+            app:destination="@id/addInvoicesFragment"
+            app:enterAnim="@anim/anim_enter"
+            app:exitAnim="@anim/anim_exit" />
     </fragment>
     <fragment
         android:id="@+id/detailInvoicesFragment"

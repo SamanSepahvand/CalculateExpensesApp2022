@@ -2,6 +2,7 @@ package com.samansepahvand.calculateexpensesapp2022.ui.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.BoolRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -19,10 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
+import com.samansepahvand.calculateexpensesapp2022.bussines.domain.Enumerations;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DateModel;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.InfoMetaModel;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.OperationResult;
 import com.samansepahvand.calculateexpensesapp2022.bussines.repository.InfoRepository;
+import com.samansepahvand.calculateexpensesapp2022.db.Info;
 import com.samansepahvand.calculateexpensesapp2022.infrastructure.Utility;
 import com.samansepahvand.calculateexpensesapp2022.ui.adapter.ListInvoicesAdapter;
 import com.samansepahvand.calculateexpensesapp2022.ui.customView.DialogChooseDate;
@@ -32,7 +35,7 @@ import com.samansepahvand.calculateexpensesapp2022.ui.customView.DialogChooseDat
  * Use the {@link ListInvoicesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListInvoicesFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener {
+public class ListInvoicesFragment extends Fragment implements SearchView.OnQueryTextListener, View.OnClickListener , ListInvoicesAdapter.IGetMetaInfo {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,6 +57,8 @@ public class ListInvoicesFragment extends Fragment implements SearchView.OnQuery
     private ImageView imgBack;
     private DateModel dateModel;
 private ListInvoicesAdapter adapter;
+
+private ListInvoicesAdapter.IGetMetaInfo iGetMetaInfo;
 
 
     /**
@@ -106,6 +111,8 @@ private ListInvoicesAdapter adapter;
         txtInvoiceCount=view.findViewById(R.id.txt_count);
         txtTotalPrice=view.findViewById(R.id.txt_total_price);
 
+        iGetMetaInfo=(ListInvoicesAdapter.IGetMetaInfo)this;
+
 
         recyclerView=view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -143,7 +150,7 @@ private ListInvoicesAdapter adapter;
         txtFormDateToDate.setText(DateModelInfoDesc(dateModel));
         txtInvoiceCount.setText("تعداد : "+(result.Items.size()));
         txtTotalPrice.setText(Utility.SplitDigits(Integer.parseInt(result.Message)));
-        adapter=new ListInvoicesAdapter(getContext(),result.Items);
+        adapter=new ListInvoicesAdapter(getContext(),result.Items,iGetMetaInfo);
         recyclerView.setAdapter(adapter);
 
 
@@ -202,5 +209,34 @@ private ListInvoicesAdapter adapter;
     }
 
 
+    @Override
+    public void GetMetaInfo(InfoMetaModel metaModel, int invoiceActionType) {
 
+
+        if (metaModel!=null){
+
+            OperationResult<Info> result
+                    =InfoRepository.getInstance().GetInfoByMeta(metaModel, Enumerations.InvoiceActionType.SHOW);
+
+            switch (invoiceActionType){
+
+                case Enumerations.InvoiceActionType.UPDATE:
+
+                    ListInvoicesFragmentDirections.ActionListInvoicesFragmentToAddInvoicesFragment
+                            action= ListInvoicesFragmentDirections.actionListInvoicesFragmentToAddInvoicesFragment(result.Item);
+
+                    navController.navigate(action);
+
+                    break;
+
+                case Enumerations.InvoiceActionType.SHOW:
+
+                    break;
+
+            }
+
+
+
+        }
+    }
 }

@@ -27,18 +27,20 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
 
     private Context context;
     private List<InfoMetaModel> mDataList;
+    private IGetMetaInfo _iGetMetaInfo;
 
 
-    public ListInvoicesAdapter(Context context, List<InfoMetaModel> mDataList) {
+    public ListInvoicesAdapter(Context context, List<InfoMetaModel> mDataList, IGetMetaInfo iGetMetaInfo) {
         this.context = context;
         this.mDataList = mDataList;
+        this._iGetMetaInfo = iGetMetaInfo;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view= LayoutInflater.from(context).inflate(R.layout.item_list_invoices,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_list_invoices, parent, false);
         return new MyViewHolder(view);
 
 
@@ -47,13 +49,13 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        InfoMetaModel item=mDataList.get(position);
+        InfoMetaModel item = mDataList.get(position);
 
-        holder.txtRow.setText((position+1)+"");
+        holder.txtRow.setText((position + 1) + "");
 
         holder.txtTitle.setText(item.getTitle());
 
-        holder.txtDate.setText("تاریخ ثبت:"+item.getFarsiDate());
+        holder.txtDate.setText("تاریخ ثبت:" + item.getFarsiDate());
 
         holder.txtPriceType.setText(item.getPriceTypeItemName());
 
@@ -66,7 +68,6 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
         holder.txtPrice.setText(strHtml);
 
 
-
     }
 
     @Override
@@ -77,13 +78,10 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
     // update  list
 
 
-
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView txtTitle, txtPrice, txtDate, txtRow,txtPriceType;
-        private ImageView imgShowInvoices,imgEdit,imgDelete;
+        private TextView txtTitle, txtPrice, txtDate, txtRow, txtPriceType;
+        private ImageView imgShowInvoices, imgEdit, imgDelete;
 
         public MyViewHolder(@NonNull View itemView) {
 
@@ -96,19 +94,18 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
 
             imgEdit = itemView.findViewById(R.id.img_edit);
             imgDelete = itemView.findViewById(R.id.img_delete);
-            imgShowInvoices=itemView.findViewById(R.id.img_show_invoices);
+            imgShowInvoices = itemView.findViewById(R.id.img_show_invoices);
 
             txtDate = itemView.findViewById(R.id.item_txt_date);
             txtTitle = itemView.findViewById(R.id.item_txt_title);
             txtPrice = itemView.findViewById(R.id.item_txt_price);
             txtRow = itemView.findViewById(R.id.item_txt_row);
-            txtPriceType =itemView.findViewById(R.id.txt_price_type);
+            txtPriceType = itemView.findViewById(R.id.txt_price_type);
 
 
             imgDelete.setOnClickListener(this);
             imgEdit.setOnClickListener(this);
             imgShowInvoices.setOnClickListener(this);
-
 
 
         }
@@ -118,17 +115,18 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
         public void onClick(View view) {
 
 
-            switch (view.getId()){
+            switch (view.getId()) {
 
                 case R.id.img_edit:
+                    _iGetMetaInfo.GetMetaInfo(mDataList.get(getAdapterPosition()), Enumerations.InvoiceActionType.UPDATE);
 
                     break;
                 case R.id.img_delete:
 
-                    OperationResult result=
+                    OperationResult result =
                             InfoRepository.getInstance().GetInfoByMeta(mDataList.get(getAdapterPosition()), Enumerations.InvoiceActionType.DELETE);
 
-                    if (result.IsSuccess){
+                    if (result.IsSuccess) {
                         mDataList.remove(getAdapterPosition());
                         notifyItemRemoved(getAdapterPosition());
                         notifyDataSetChanged();
@@ -137,9 +135,15 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
                     break;
 
                 case R.id.img_show_invoices:
+
                     break;
             }
         }
+    }
+
+    public interface IGetMetaInfo {
+
+        void GetMetaInfo(InfoMetaModel metaModel, int invoiceActionType);
     }
 
 
