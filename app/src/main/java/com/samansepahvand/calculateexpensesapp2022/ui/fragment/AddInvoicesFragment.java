@@ -409,8 +409,6 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
     @Override
     public void GetPrice(PriceType priceType) {
 
-        Log.e(TAG, "GetPrice: "+priceType );
-
 
         if (priceType!=null){
 

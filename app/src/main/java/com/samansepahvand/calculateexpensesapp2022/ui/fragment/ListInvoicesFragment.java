@@ -20,10 +20,12 @@ import android.widget.Toast;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DateModel;
+import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.InfoMetaModel;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.OperationResult;
 import com.samansepahvand.calculateexpensesapp2022.bussines.repository.InfoRepository;
 import com.samansepahvand.calculateexpensesapp2022.infrastructure.Utility;
 import com.samansepahvand.calculateexpensesapp2022.ui.adapter.ListInvoicesAdapter;
+import com.samansepahvand.calculateexpensesapp2022.ui.customView.DialogChooseDate;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -123,22 +125,26 @@ private ListInvoicesAdapter adapter;
 
     private void intiData() {
 
-
         dateModel= Utility.GetFirstLastDayMonthFarsi();
-
 
         OperationResult result= InfoRepository.getInstance().GetInfo(dateModel);
 
         if (result.IsSuccess){
-            txtFormDateToDate.setText(DateModelInfoDesc(dateModel));
-            txtInvoiceCount.setText("تعداد : "+(result.Items.size()));
-            txtTotalPrice.setText(Utility.SplitDigits(Integer.parseInt(result.Message)));
-            adapter=new ListInvoicesAdapter(getContext(),result.Items);
-            recyclerView.setAdapter(adapter);
-
+            FillUiData(result,dateModel);
         }else{
             Toast.makeText(getContext(), ""+result.Message, Toast.LENGTH_SHORT).show();
         }
+
+
+    }
+
+    private void FillUiData(OperationResult result, DateModel dateModel) {
+
+        txtFormDateToDate.setText(DateModelInfoDesc(dateModel));
+        txtInvoiceCount.setText("تعداد : "+(result.Items.size()));
+        txtTotalPrice.setText(Utility.SplitDigits(Integer.parseInt(result.Message)));
+        adapter=new ListInvoicesAdapter(getContext(),result.Items);
+        recyclerView.setAdapter(adapter);
 
 
     }
@@ -162,7 +168,25 @@ private ListInvoicesAdapter adapter;
 
                 /// make dialog for choose from date to date list invoices
 
+                DialogChooseDate dialog =new DialogChooseDate(getActivity(),true,true);
+                dialog.setCancelable(false);
+                dialog.setAcceptButton(new DialogChooseDate.OnAcceptInterface() {
+                    @Override
+                    public void accept(DateModel dateModel) {
 
+                        OperationResult result= InfoRepository.getInstance().GetInfo(dateModel);
+
+                        if (result.IsSuccess){
+                            FillUiData(result,dateModel);
+                        }else{
+                            Toast.makeText(getContext(), ""+result.Message, Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }
+                });
+
+                dialog.show();
                 break;
 
         }

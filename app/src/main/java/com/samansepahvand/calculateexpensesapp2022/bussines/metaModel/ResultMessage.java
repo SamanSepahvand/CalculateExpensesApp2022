@@ -8,4 +8,7 @@ public class ResultMessage {
 
     public static final String ErrorListMessage="خطا در بازیابی لیست داده ها !";
 
+
+    public static final String ErrorFindInvoices="فاکتور انتخابی وجود ندارد !";
+
 }

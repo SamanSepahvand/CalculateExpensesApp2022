@@ -8,12 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
+import com.samansepahvand.calculateexpensesapp2022.bussines.domain.Enumerations;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.InfoMetaModel;
+import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.OperationResult;
+import com.samansepahvand.calculateexpensesapp2022.bussines.repository.InfoRepository;
 import com.samansepahvand.calculateexpensesapp2022.infrastructure.Utility;
 
 import java.util.List;
@@ -54,7 +58,7 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
         holder.txtPriceType.setText(item.getPriceTypeItemName());
 
         String str = "<font color=red><b>" +
-                Utility.splitDigits(item.getPrice()) +
+                Utility.SplitDigits(item.getPrice()) +
                 "</b></font>"
                 + "  ریال ";
         Spanned strHtml = Html.fromHtml(str);
@@ -76,7 +80,7 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
 
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView txtTitle, txtPrice, txtDate, txtRow,txtPriceType;
         private ImageView imgShowInvoices,imgEdit,imgDelete;
@@ -100,6 +104,41 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
             txtRow = itemView.findViewById(R.id.item_txt_row);
             txtPriceType =itemView.findViewById(R.id.txt_price_type);
 
+
+            imgDelete.setOnClickListener(this);
+            imgEdit.setOnClickListener(this);
+            imgShowInvoices.setOnClickListener(this);
+
+
+
+        }
+
+
+        @Override
+        public void onClick(View view) {
+
+
+            switch (view.getId()){
+
+                case R.id.img_edit:
+
+                    break;
+                case R.id.img_delete:
+
+                    OperationResult result=
+                            InfoRepository.getInstance().GetInfoByMeta(mDataList.get(getAdapterPosition()), Enumerations.InvoiceActionType.DELETE);
+
+                    if (result.IsSuccess){
+                        mDataList.remove(getAdapterPosition());
+                        notifyItemRemoved(getAdapterPosition());
+                        notifyDataSetChanged();
+                    }
+                    Toast.makeText(context, result.Message, Toast.LENGTH_SHORT).show();
+                    break;
+
+                case R.id.img_show_invoices:
+                    break;
+            }
         }
     }
 

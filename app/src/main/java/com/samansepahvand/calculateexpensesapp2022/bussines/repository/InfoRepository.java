@@ -2,7 +2,10 @@ package com.samansepahvand.calculateexpensesapp2022.bussines.repository;
 
 import android.content.Context;
 
+import com.activeandroid.query.Delete;
+import com.activeandroid.query.Select;
 import com.activeandroid.util.SQLiteUtils;
+import com.samansepahvand.calculateexpensesapp2022.bussines.domain.Enumerations;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DateModel;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.InfoMetaModel;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.OperationResult;
@@ -95,14 +98,48 @@ public class InfoRepository {
 
     }
 
+    public OperationResult GetInfoByMeta(InfoMetaModel infoMetaModel, int invoiceActionType) {
 
-    //add-price
+        try{
+
+            Info info=new Select().from(Info.class).where("id=?",infoMetaModel.getId()).executeSingle();
+
+            if (info==null)   return new OperationResult(ResultMessage.ErrorFindInvoices,false,null);
+
+            switch (invoiceActionType){
+                case  Enumerations.InvoiceActionType.DELETE:
+                    boolean isSuccess=DeleteInfo(info);
+                 return new OperationResult(ResultMessage.SuccessMessage,isSuccess,null);
+
+                case  Enumerations.InvoiceActionType.SHOW:
+                    return new OperationResult(ResultMessage.ErrorMessage,false,null);
+
+                default:
+                 return  new OperationResult(ResultMessage.ErrorMessage,false,null);
+
+            }
+
+    }catch (Exception e){
 
 
-    //show-list-invoices
+        return new OperationResult(ResultMessage.ErrorMessage,false,e.getMessage());
 
+    }
 
+}
 
-    //update.delete.read.create  //crud
+    private boolean DeleteInfo(Info info) {
+
+        try{
+
+            new Delete().from(Info.class)
+                    .where("id=?",info.getId())
+                    .execute();
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 
 }

@@ -2,7 +2,9 @@ package com.samansepahvand.calculateexpensesapp2022.infrastructure;
 
 import android.animation.ObjectAnimator;
 import android.text.Html;
+import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.widget.ImageView;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
@@ -246,16 +248,12 @@ public class Utility {
     }
 
 
-    public static String splitDigits(int number) {
-        try {
-            DecimalFormat decimalFormat = new DecimalFormat();
-            DecimalFormatSymbols decimalFormatSymbol = new DecimalFormatSymbols();
-            decimalFormatSymbol.setGroupingSeparator(',');
-            decimalFormat.setDecimalFormatSymbols(decimalFormatSymbol);
-            return decimalFormat.format(number);
-        } catch (Exception ex) {
-            return String.valueOf(number);
-        }
+
+
+    public static SpannableString TextWithUnderLineStyle(String FarsiDate) {
+        SpannableString content = new SpannableString(FarsiDate);
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        return content;
     }
 
 
