@@ -25,7 +25,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.samansepahvand.calculateexpensesapp2022.R;
+import com.samansepahvand.calculateexpensesapp2022.bussines.domain.Constants;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.OperationResult;
 import com.samansepahvand.calculateexpensesapp2022.bussines.repository.InfoRepository;
 import com.samansepahvand.calculateexpensesapp2022.db.Info;
@@ -85,6 +87,9 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
     private Info infoDate=new Info();
 
 
+    private TextInputLayout txtInputPrice,txtInputTitle;
+
+
 
     public AddInvoicesFragment() {
         // Required empty public constructor
@@ -136,6 +141,11 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
         mNavController = Navigation.findNavController(view);
 
 
+
+       txtInputPrice=view.findViewById(R.id.filledTextField_username);
+        txtInputTitle =view.findViewById(R.id.filledTextField_title);
+        txtInputPrice.setTypeface(Constants.CustomStyleElement());
+        txtInputTitle.setTypeface(Constants.CustomStyleElement());
 
         imgInsertBack = view.findViewById(R.id.img_back);
         edtPrice = view.findViewById(R.id.edt_price);

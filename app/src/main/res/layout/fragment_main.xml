@@ -66,7 +66,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView3" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txt_header_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -87,10 +87,10 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_header_count" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/txt_header_total_price"
             android:layout_width="67dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -108,9 +108,9 @@
             android:layout_marginEnd="8dp"
             android:text="ریال"
             android:textColor="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="@+id/textView4"
-            app:layout_constraintEnd_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4" />
+            app:layout_constraintBottom_toBottomOf="@+id/txt_header_total_price"
+            app:layout_constraintEnd_toStartOf="@+id/txt_header_total_price"
+            app:layout_constraintTop_toTopOf="@+id/txt_header_total_price" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -211,7 +211,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
                             <TextView
-                                android:id="@+id/textView15"
+                                android:id="@+id/txt_right_current_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
@@ -339,7 +339,7 @@
                                 app:layout_constraintTop_toTopOf="@+id/textView9" />
 
                             <TextView
-                                android:id="@+id/textView11"
+                                android:id="@+id/txt_left_max_invoice_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
@@ -351,7 +351,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
                             <TextView
-                                android:id="@+id/textView12"
+                                android:id="@+id/txt_left_last_invoice_pricce"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
@@ -363,7 +363,7 @@
                                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
                             <TextView
-                                android:id="@+id/textView13"
+                                android:id="@+id/txt_invoice_left_count_total"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"

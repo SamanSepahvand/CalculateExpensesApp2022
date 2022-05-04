@@ -14,8 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
+import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DetailMainInfo;
+import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.OperationResult;
+import com.samansepahvand.calculateexpensesapp2022.bussines.repository.InfoRepository;
 import com.samansepahvand.calculateexpensesapp2022.bussines.repository.PriceTypeRepository;
 import com.samansepahvand.calculateexpensesapp2022.infrastructure.Utility;
 
@@ -39,6 +43,15 @@ public class MainFragment extends Fragment  implements View.OnClickListener {
 
     private CardView cvInvoiceList,cvAddInvoice;
     private ImageView imgInvoiceListMore,imgAddInvoicesMore;
+
+
+
+    private TextView txtHeaderTotalPrice,txtHeaderCountInvoices,
+    txtRightCurrentDate,txtLeftMaxPrice,txtLeftLastInvoicePrice,txtLeftInvoiceCount;
+
+
+
+
 
 
 
@@ -104,6 +117,22 @@ public class MainFragment extends Fragment  implements View.OnClickListener {
         cvInvoiceList=view.findViewById(R.id.cv_show_invoices);
 
 
+        //header
+        txtHeaderCountInvoices =view.findViewById(R.id.txt_header_count);
+        txtHeaderTotalPrice= view.findViewById(R.id.txt_header_total_price);
+
+
+        //left
+        txtLeftInvoiceCount = view.findViewById(R.id.txt_invoice_left_count_total);
+        txtLeftMaxPrice = view.findViewById(R.id.txt_left_max_invoice_price);
+        txtLeftLastInvoicePrice = view.findViewById(R.id.txt_left_last_invoice_pricce);
+
+
+        //right
+        txtRightCurrentDate = view.findViewById(R.id.txt_right_current_date);
+
+
+
 
         //action Component
         cvInvoiceList.setOnClickListener(this);
@@ -111,6 +140,53 @@ public class MainFragment extends Fragment  implements View.OnClickListener {
         imgAddInvoicesMore.setOnClickListener(this);
         imgInvoiceListMore.setOnClickListener(this);
 
+
+
+        setHeaderData();
+
+    }
+
+    private void setHeaderData() {
+
+
+        OperationResult<DetailMainInfo>
+                result= InfoRepository.getInstance().DetailMainInfo();
+
+        if (result.IsSuccess){
+            //header
+            txtHeaderCountInvoices.setText(result.Item.getHeaderInvoiceCount());
+            txtHeaderTotalPrice.setText(result.Item.getHeaderTotalPrice());
+
+
+            //left
+            txtLeftInvoiceCount.setText(result.Item.getLeftInvoiceCount());
+            txtLeftMaxPrice.setText(result.Item.getLeftMaxInvoicePrice());
+            txtLeftLastInvoicePrice.setText(result.Item.getLeftLastInvoicePrice());
+
+
+            //right
+            txtRightCurrentDate.setText(result.Item.getRightCurrentDate());
+
+
+
+        }else{
+
+            //header
+            txtHeaderCountInvoices.setText("تعداد:0");
+            txtHeaderTotalPrice.setText("0");
+
+
+            //left
+            txtLeftInvoiceCount.setText("");
+            txtLeftMaxPrice.setText("");
+            txtLeftLastInvoicePrice.setText("");
+
+
+            //right
+            txtRightCurrentDate.setText("");
+
+
+        }
     }
 
     @Override

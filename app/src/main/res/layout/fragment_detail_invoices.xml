@@ -54,7 +54,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/txt_invoice_left_count_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="مشاهده فاکتور "
@@ -70,8 +70,8 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/textView13"
-            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="@+id/txt_invoice_left_count_total"
+            app:layout_constraintStart_toStartOf="@+id/txt_invoice_left_count_total"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/bill_1" />
 

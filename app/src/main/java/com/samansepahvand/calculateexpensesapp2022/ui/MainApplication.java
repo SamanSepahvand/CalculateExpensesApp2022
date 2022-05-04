@@ -8,7 +8,9 @@ import android.view.animation.AnimationUtils;
 import com.activeandroid.ActiveAndroid;
 import com.samansepahvand.calculateexpensesapp2022.R;
 
-public class MainApplication  extends Application {
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
+public class MainApplication extends Application {
 
     private static Context context;
     private static Animation animation;
@@ -22,14 +24,23 @@ public class MainApplication  extends Application {
         super.onCreate();
         intiActiveAndroid();
         MainApplication.context = getApplicationContext();
-
+        fontAssign();
 
     }
 
 
+    public void fontAssign() {
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/iran_sans.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .disableCustomViewInflation()
+                .build()
+        );
+    }
 
 
-    private void intiActiveAndroid(){
+    private void intiActiveAndroid() {
         ActiveAndroid.initialize(this);
     }
 
@@ -38,8 +49,7 @@ public class MainApplication  extends Application {
     }
 
 
-
-    public  static Animation SetAnimation(String typeAnimation) {
+    public static Animation SetAnimation(String typeAnimation) {
 
         switch (typeAnimation) {
             case "Rotate":
@@ -65,15 +75,10 @@ public class MainApplication  extends Application {
                 break;
 
 
-
-
-
         }
         return animation;
 
     }
-
-
 
 
 }

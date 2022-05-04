@@ -214,6 +214,23 @@ public class Utility {
         return strHtml.toString();
     }
 
+
+    public static String ShowTimeFarsiMeta() {
+        String currentEngDate= GetEngDate();
+        String[] currentDate= Utility.getIranianDate().split(" ");
+
+        Spanned strHtml = Html.fromHtml((currentEngDate!= null ? " <font color=#2e9699> <b> "
+                + Utility.getDayName(currentEngDate) + currentDate[0] +
+                " ساعت:  " + currentDate[1].split(":")[0] + ":" + currentDate[1].split(":")[1] + " </b></font>" : "زمان نامشخص می باشد ! "));
+        return strHtml.toString();
+    }
+    private static String GetEngDate() {
+        Date date1 = new Date();
+        return DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT).format(date1);
+    }
+
+
+
     public static String getDayName(String date) {
         try {
 

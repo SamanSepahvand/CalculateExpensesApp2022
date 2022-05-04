@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
+import com.samansepahvand.calculateexpensesapp2022.bussines.domain.Constants;
 import com.samansepahvand.calculateexpensesapp2022.bussines.domain.Enumerations;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DateModel;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.InfoMetaModel;
@@ -107,6 +108,12 @@ private ListInvoicesAdapter.IGetMetaInfo iGetMetaInfo;
         navController= Navigation.findNavController(view);
         imgBack=view.findViewById(R.id.img_back);
         searchView=view.findViewById(R.id.search_view);
+
+        TextView txtSearchViewText=view.findViewById(androidx.appcompat.R.id.search_src_text);
+
+        txtSearchViewText.setTextSize(12f);
+        txtSearchViewText.setTypeface(Constants.CustomStyleElement());
+
         txtFormDateToDate=view.findViewById(R.id.txt_from_date_to_date);
         txtInvoiceCount=view.findViewById(R.id.txt_count);
         txtTotalPrice=view.findViewById(R.id.txt_total_price);

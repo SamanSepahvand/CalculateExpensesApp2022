@@ -7,6 +7,7 @@ import com.activeandroid.query.Select;
 import com.activeandroid.util.SQLiteUtils;
 import com.samansepahvand.calculateexpensesapp2022.bussines.domain.Enumerations;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DateModel;
+import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DetailMainInfo;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.InfoMetaModel;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.OperationResult;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.ResultMessage;
@@ -206,6 +207,50 @@ public class InfoRepository {
 
         }
 
+
+
+    }
+
+    public OperationResult<DetailMainInfo> DetailMainInfo() {
+
+        try{
+            DetailMainInfo result=new DetailMainInfo();
+
+            int totalPrice=0;
+
+            List<Info> infoList=new Select().from(Info.class)
+                                            .orderBy("price desc")
+                                            .execute();
+
+            List<Info> infoListOrderId=new Select().from(Info.class)
+                    .orderBy("id desc")
+                    .execute();
+
+            for (Info item:infoList){
+                totalPrice+=item.getPrice();
+            }
+
+
+            result.setHeaderTotalPrice(Utility.SplitDigits(totalPrice));
+            result.setHeaderInvoiceCount("تعداد:"+infoList.size());
+
+            result.setLeftLastInvoicePrice(Utility.SplitDigits(infoListOrderId.get(0).getPrice()));
+            result.setLeftMaxInvoicePrice(Utility.SplitDigits(infoList.get(0).getPrice()));
+            result.setLeftInvoiceCount(infoList.size()+"");
+
+            result.setRightCurrentDate("امروز "+Utility.ShowTimeFarsiMeta());
+
+
+            return new OperationResult(ResultMessage.SuccessMessage,true,null,result,null);
+
+
+
+        }catch (Exception e){
+
+
+            return new OperationResult(ResultMessage.ErrorMessage,false,e.getMessage());
+
+        }
 
 
     }
