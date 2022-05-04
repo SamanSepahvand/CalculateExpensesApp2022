@@ -231,6 +231,9 @@ private ListInvoicesAdapter.IGetMetaInfo iGetMetaInfo;
 
                 case Enumerations.InvoiceActionType.SHOW:
 
+                    ListInvoicesFragmentDirections.ActionListInvoicesFragmentToDetailInvoicesFragment
+                            actionDetails=ListInvoicesFragmentDirections.actionListInvoicesFragmentToDetailInvoicesFragment(metaModel);
+                    navController.navigate(actionDetails);
                     break;
 
             }

@@ -18,6 +18,12 @@ public class Enumerations {
     }
 
 
+    public class InvoiceShowType {
+
+        public static final int All = 0;
+        public static final int Single = 1;
+
+    }
 
 
 }

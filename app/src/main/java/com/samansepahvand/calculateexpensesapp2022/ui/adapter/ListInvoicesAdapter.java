@@ -136,6 +136,8 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
 
                 case R.id.img_show_invoices:
 
+                    _iGetMetaInfo.GetMetaInfo(mDataList.get(getAdapterPosition()), Enumerations.InvoiceActionType.SHOW);
+
                     break;
             }
         }

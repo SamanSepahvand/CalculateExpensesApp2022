@@ -13,6 +13,7 @@ import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.ResultMess
 import com.samansepahvand.calculateexpensesapp2022.db.Info;
 import com.samansepahvand.calculateexpensesapp2022.infrastructure.Utility;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InfoRepository {
@@ -164,4 +165,48 @@ public class InfoRepository {
     }
 
 
+    public OperationResult GetSameInvoices(InfoMetaModel infoMetaModel) {
+
+
+        try{
+
+            String  Query=" SELECT * FROM INFO i " +
+                    " left join  priceType p on p.priceTypeItemId=i.priceTypeItemId and p.priceTypeId=i.priceTypeId " +
+                    " where i.priceTypeId="+infoMetaModel.getPriceTypeId()+" and i.id<>"+infoMetaModel.getId()+
+                    " order by i.id desc ";
+
+            List<InfoMetaModel> metaModelList=
+                    SQLiteUtils.rawQuery(InfoMetaModel.class,Query,null);
+
+            if (metaModelList==null)
+                return new OperationResult(ResultMessage.ErrorMessage,false,null);
+
+
+            InfoMetaModel lastItem=new InfoMetaModel();
+            lastItem.setPriceTypeId(metaModelList.get(0).getPriceTypeId());
+            lastItem.setTitle("مشاهده همه");
+
+
+            InfoMetaModel firstItem=new InfoMetaModel();
+            firstItem.setPriceTypeId(metaModelList.get(0).getPriceTypeId());
+            firstItem.setTitle(" < مشاهده همه");
+
+
+            metaModelList.add(0,firstItem);
+            metaModelList.add(metaModelList.size(),lastItem);
+
+
+
+            return new OperationResult(ResultMessage.SuccessMessage,true,null,null,metaModelList);
+
+        }catch (Exception e){
+
+
+            return new OperationResult(ResultMessage.ErrorMessage,false,e.getMessage());
+
+        }
+
+
+
+    }
 }

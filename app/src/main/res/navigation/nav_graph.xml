@@ -50,7 +50,17 @@
         android:id="@+id/detailInvoicesFragment"
         android:name="com.samansepahvand.calculateexpensesapp2022.ui.fragment.DetailInvoicesFragment"
         android:label="fragment_detail_invoices"
-        tools:layout="@layout/fragment_detail_invoices" />
+        tools:layout="@layout/fragment_detail_invoices" >
+        <argument
+            android:name="InfoMetaModel"
+            app:argType="com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.InfoMetaModel" />
+        <action
+            android:id="@+id/action_detailInvoicesFragment_to_listInvoicesFragment"
+            app:destination="@id/listInvoicesFragment" />
+        <action
+            android:id="@+id/action_detailInvoicesFragment_self"
+            app:destination="@id/detailInvoicesFragment" />
+    </fragment>
 
 
 </navigation>
