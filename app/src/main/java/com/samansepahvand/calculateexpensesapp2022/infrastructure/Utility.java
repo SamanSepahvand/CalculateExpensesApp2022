@@ -1,6 +1,7 @@
 package com.samansepahvand.calculateexpensesapp2022.infrastructure;
 
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -8,12 +9,14 @@ import android.text.style.UnderlineSpan;
 import android.widget.ImageView;
 
 import com.samansepahvand.calculateexpensesapp2022.R;
+import com.samansepahvand.calculateexpensesapp2022.bussines.domain.Constants;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.CalculateDate;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DateModel;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.DateSingle;
 import com.samansepahvand.calculateexpensesapp2022.bussines.metaModel.InfoMetaModel;
 import com.samansepahvand.calculateexpensesapp2022.helper.CalendarTool;
 import com.samansepahvand.calculateexpensesapp2022.helper.DateConverter;
+import com.samansepahvand.calculateexpensesapp2022.ui.customView.AlertDialogModal;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -272,6 +275,60 @@ public class Utility {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         return content;
     }
+
+    public  static  void Dialog(String info, Context context, boolean isSuccess){
+        AlertDialogModal dialogModal=new AlertDialogModal(context,true,false);
+
+        dialogModal.setImageTypeCustom(isSuccess?  Constants.TypeImageAlertDialog[3] : Constants.TypeImageAlertDialog[2] );
+        dialogModal.setButtonConfirmCustom("باشه!",isSuccess?  Constants.TypeButtonStyleAlertDialog[4] : Constants.TypeButtonStyleAlertDialog[2]);
+        dialogModal.setTextContent(info);
+
+
+        dialogModal.setAcceptButton(new AlertDialogModal.OnAcceptInterface() {
+            @Override
+            public void accept() {
+                dialogModal.dismiss();
+            }
+        });
+
+        dialogModal.show();
+
+    }
+
+
+    public  static  void DialogSuccess(String info, Context context){
+        AlertDialogModal dialogModal=new AlertDialogModal(context,true,false);
+        dialogModal.setImageTypeCustom(Constants.TypeImageAlertDialog[3]);
+        dialogModal.setButtonConfirmCustom("باشه!",Constants.TypeButtonStyleAlertDialog[4]);
+        dialogModal.setTextContent(info);
+        dialogModal.setAcceptButton(new AlertDialogModal.OnAcceptInterface() {
+            @Override
+            public void accept() {
+                dialogModal.dismiss();
+            }
+        });
+
+        dialogModal.show();
+
+    }
+
+
+    public  static  void DialogFailed(String info, Context context){
+        AlertDialogModal dialogModal=new AlertDialogModal(context,true,false);
+        dialogModal.setImageTypeCustom(Constants.TypeImageAlertDialog[2]);
+        dialogModal.setButtonConfirmCustom("باشه!",Constants.TypeButtonStyleAlertDialog[2]);
+        dialogModal.setTextContent(info);
+        dialogModal.setAcceptButton(new AlertDialogModal.OnAcceptInterface() {
+            @Override
+            public void accept() {
+                dialogModal.dismiss();
+            }
+        });
+
+        dialogModal.show();
+
+    }
+
 
 
 }

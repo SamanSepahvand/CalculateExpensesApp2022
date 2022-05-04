@@ -326,8 +326,10 @@ public class AddInvoicesFragment extends Fragment implements View.OnClickListene
         }
 
 
+
         OperationResult result= InfoRepository.getInstance().AddPrice(info,Id);
-        Toast.makeText(getContext(), result.Message, Toast.LENGTH_SHORT).show();
+
+        Utility.Dialog(result.Message,getContext(),result.IsSuccess);
 
 
         mNavController.navigate(R.id.action_addInvoicesFragment_to_mainFragment);

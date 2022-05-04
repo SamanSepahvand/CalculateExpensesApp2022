@@ -75,7 +75,17 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
         return mDataList.size();
     }
 
+
     // update  list
+    public void Update(List<InfoMetaModel> newList) {
+        setData(newList);
+        notifyDataSetChanged();
+    }
+    private void setData(List<InfoMetaModel> newData){
+
+        mDataList.clear();
+        if (newData!=null)mDataList.addAll(newData);
+    }
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -127,11 +137,21 @@ public class ListInvoicesAdapter extends RecyclerView.Adapter<ListInvoicesAdapte
                             InfoRepository.getInstance().GetInfoByMeta(mDataList.get(getAdapterPosition()), Enumerations.InvoiceActionType.DELETE);
 
                     if (result.IsSuccess) {
+                        _iGetMetaInfo.GetMetaInfo(null, Enumerations.InvoiceActionType.DELETE);
                         mDataList.remove(getAdapterPosition());
                         notifyItemRemoved(getAdapterPosition());
                         notifyDataSetChanged();
+
+                    Utility.DialogSuccess(result.Message,context);
+
+
+                    }else{
+                        Utility.DialogFailed(result.Message,context);
                     }
-                    Toast.makeText(context, result.Message, Toast.LENGTH_SHORT).show();
+
+
+
+
                     break;
 
                 case R.id.img_show_invoices:
